@@ -36,6 +36,9 @@ def main():
     Prints solved board and the time taken
     """
     n = 3
+
+    with open("printed_puzzle.txt", 'w') as file:
+        file.write("")
    
     board = read_file("basic_sudoku.txt")
     print_board(board, n)
@@ -51,26 +54,32 @@ def main():
 
 
     # alternating projections
-    board = read_file("basic_sudoku.txt")
+    board_2 = read_file("basic_sudoku.txt")
     
     start = time()
-    alt = alternating_projections(board, n)
+    alt = alternating_projections(board_2, n)
     end = time()
 
     print_board(alt, n)
     print(f"Alternating projections completed in: {end-start}")
 
+    differences = compare(board, alt, n)
+
+    print(f"Errors: {differences}")
+
     
     # simmulating annealing
-    board = read_file("basic_sudoku.txt")
+    board_3 = read_file("basic_sudoku.txt")
 
     start = time()
-    board, conflicts = simulated_annealing(board, n)
+    anneal = simulated_annealing(board_3, n)
     end = time()
 
-    print(f"Alternating projections completed in: {end-start}\nConflicts: {conflicts}")
-    print_board(board, n)
+    differences = compare(board, anneal, n)
 
+    print(f"Alternating projections completed in: {end-start}\nErrors: {differences}")
+    print_board(anneal, n)
+    
 
 
 if __name__ == "__main__":

@@ -156,10 +156,10 @@ def simulated_annealing(board: list, n: int) -> list|int:
                     current_cost = new_cost
 
             if current_cost == 0: # return if no conflicts
-                return state, 0  
+                return state  
 
         # cool the temperature and go again
         T *= alpha
 
     # if there are still conflicts once cooled
-    return state, current_cost
+    return state
