@@ -29,13 +29,13 @@ def test(n, method, file_name):
         match i:
             case 0:
                 with open(file_name, 'a') as file:
-                    file.write(f"----------Easy file----------\n\n")
+                    file.write(f"\n\n\n----------Easy file----------\n\n")
             case 1:
                 with open(file_name, 'a') as file:
-                    file.write(f"----------Medium file----------\n\n")
+                    file.write(f"\n\n\n----------Medium file----------\n\n")
             case 2:
                 with open(file_name, 'a') as file:
-                    file.write(f"----------Hard file----------\n\n")
+                    file.write(f"\n\n\----------Hard file----------\n\n")
         for j in range(5):
             match i:
                 case 0:
