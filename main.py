@@ -22,6 +22,77 @@ def read_file(file_name):
     
     return board
 
+
+def test(n, method, file_name):
+
+    for i in range(3):
+        match i:
+            case 0:
+                with open(file_name, 'a') as file:
+                    file.write(f"----------Easy file----------\n\n")
+            case 1:
+                with open(file_name, 'a') as file:
+                    file.write(f"----------Medium file----------\n\n")
+            case 2:
+                with open(file_name, 'a') as file:
+                    file.write(f"----------Hard file----------\n\n")
+        for j in range(5):
+            match i:
+                case 0:
+                    board = read_file("easy_sudoku.txt")
+                    answer = read_file("easy_sudoku_answer.txt")
+                case 1:
+                    board = read_file("medium_sudoku.txt")
+                    answer = read_file("medium_sudoku_answer.txt")
+                case 2:
+                    board = read_file("hard_sudoku.txt")
+                    answer = read_file("hard_sudoku_answer.txt")
+                
+            with open(file_name, 'a') as file:
+                file.write(f"---Test {j+1}---\n\n")
+                
+            print_board(board, n, file_name)
+            times = []
+
+
+            if method == "backtracking":
+                start = time()
+                backtrack(board, n)
+                end = time()
+                times.append(end-start)
+            elif method == "alternating projection":
+                start = time()
+                board = alternating_projections(board, n)
+                end = time()
+                times.append(end-start)
+            elif method == "simulated annealing":
+                start = time()
+                board = simulated_annealing(board, n)
+                end = time()
+                times.append(end-start)
+
+
+            differences = []
+            differences.append(compare(board, answer, n))
+
+            with open(file_name, 'a') as file:
+                file.write(f"Puzzle completed with {method}\nTime taken: {times[-1]}\n" \
+                           f"Differences: {differences[-1]}\n")
+                
+                file.write("End board:\n")
+
+            print_board(board, n, file_name)
+            with open(file_name, 'a') as file:
+                file.write("Expected:\n")
+
+            print_board(answer, n, file_name)
+        
+        with open(file_name, 'a') as file:
+                file.write(f"Average completion time: {sum(times)//len(times)}\n")
+                file.write(f"Average differences time: {sum(differences)//len(differences)}\n")
+
+
+
 def main():
     """
     Params:
@@ -37,49 +108,21 @@ def main():
     """
     n = 3
 
-    with open("printed_puzzle.txt", 'w') as file:
+    file_name = "test_results_backtracking.txt"
+    with open(file_name, 'w') as file:
         file.write("")
-   
-    board = read_file("basic_sudoku.txt")
-    print_board(board, n)
-    
-    # backtracking
-    start = time()
-    backtrack(board, n)
-    end = time()
+    test(n, "backtracking", file_name)
 
-    print_board(board, n)
-    print(f"Sudoku solved through backtracking in: {end-start}")
+    file_name = "test_results_alternating.txt"
+    with open(file_name, 'w') as file:
+        file.write("")
+    test(n, "alternating projection", file_name)
 
+    file_name = "test_results_annealing.txt"
+    with open(file_name, 'w') as file:
+        file.write("")
+    test(n, "simulated annealing", file_name)
 
-
-    # alternating projections
-    board_2 = read_file("basic_sudoku.txt")
-    
-    start = time()
-    alt = alternating_projections(board_2, n)
-    end = time()
-
-    print_board(alt, n)
-    print(f"Alternating projections completed in: {end-start}")
-
-    differences = compare(board, alt, n)
-
-    print(f"Errors: {differences}")
-
-    
-    # simmulating annealing
-    board_3 = read_file("basic_sudoku.txt")
-
-    start = time()
-    anneal = simulated_annealing(board_3, n)
-    end = time()
-
-    differences = compare(board, anneal, n)
-
-    print(f"Alternating projections completed in: {end-start}\nErrors: {differences}")
-    print_board(anneal, n)
-    
 
 
 if __name__ == "__main__":

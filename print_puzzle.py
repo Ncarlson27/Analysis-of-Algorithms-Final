@@ -1,9 +1,9 @@
-
-def print_board(board: list, n: int):
+def print_board(board: list, n: int, file_name):
     """
     Params:
         board: 2-d list representing the board
         n: an int representing the size of the board
+        file_name: a string holding the file name
 
     Returns:
         nothing
@@ -11,7 +11,7 @@ def print_board(board: list, n: int):
     Writes the Sudoku board to a txt file in an easy to read way, shows all boxes
     """
 
-    with open("printed_puzzle.txt", 'a') as file:
+    with open(file_name, 'a') as file:
         file.write("Puzzle:\n")
         for i in range(len(board)):
             if i % n == 0 and i != 0:
