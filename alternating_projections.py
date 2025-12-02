@@ -5,7 +5,7 @@ import numpy as np
 def set_one_weight(value: int, n: int) -> list:
     """
     Params:
-        value: an int representing the falue of the clue
+        value: an int representing the value of the clue
         n: an int representing the size of the board
 
     Returns:
