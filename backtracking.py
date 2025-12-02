@@ -1,5 +1,3 @@
-from time import time
-
 
 def find_empty_cell(board: list) -> tuple|None:
     """
@@ -74,7 +72,7 @@ def is_valid(board : list, number: int, position: tuple, n: int) -> bool:
 
 
 
-def solve_sudoku(board: list, n: int) -> bool:
+def backtrack(board: list, n: int) -> bool:
     """
     Params:
         board: 2-d list representing the board
@@ -97,7 +95,7 @@ def solve_sudoku(board: list, n: int) -> bool:
         if is_valid(board, i, (row, column), n):
             board[row][column] = i
 
-            if solve_sudoku(board, n):
+            if backtrack(board, n):
                 # recursivly checks the next empty cell
                 return True
             
@@ -106,102 +104,3 @@ def solve_sudoku(board: list, n: int) -> bool:
 
     # returns false if not solved yet
     return False
-
-
-def read_file(file_name):
-
-    board = []
-    
-    with open(file_name, 'r') as file:
-        for line in file.readlines():
-            temp = []
-            line = line.strip().split()
-            
-            for num in line:
-                temp.append(int(num))
-            
-            board.append(temp)
-    
-    return board
-
-
-
-def print_board(board: list, n: int):
-    """
-    Params:
-        board: 2-d list representing the board
-        n: an int representing the size of the board
-
-    Returns:
-        nothing
-
-    Writes the Sudoku board to a txt file in an easy to read way, shows all boxes
-    """
-
-    with open("printed_puzzle.txt", 'a') as file:
-        file.write("Puzzle:\n")
-        for i in range(len(board)):
-            if i % n == 0 and i != 0:
-                file.write("- " * ((n**2) + 1))
-                file.write("\n")
-
-            for j in range(len(board[0])):
-                if j % n == 0 and j != 0:
-                    file.write("|")
-                
-                if j == (n**2) - 1:
-                    file.write(f"{board[i][j]}")
-                    file.write("\n")
-
-                else:
-                    file.write(f"{board[i][j]} ")
-        
-        file.write("\n\n")
-
-
-def main():
-    """
-    Params:
-        none
-
-    Returns:
-        nothing
-
-    Calls read_file() to obtain sudoku board
-    Prints the board
-    Calls solve_sudoku() 
-    Prints solved board and the time taken
-    """
-    board = read_file("basic_sudoku.txt")
-    n = 3
-
-    print_board(board, n)
-   
-    start = time()
-    solve_sudoku(board, n)
-    end = time()
-
-    print_board(board, n)
-    print(f"Sudoku solved in: {end-start}")
-
-
-    """
-    board = read_file("sixteen.txt")
-    n = 4
-
-    print_board(board, n)
-   
-    start = time()
-    solve_sudoku(board, n)
-    end = time()
-
-    print_board(board, n)
-    print(f"Sudoku solved in: {end-start}")
-    """
-    
-
-
-
-
-if __name__ == "__main__":
-    main()
