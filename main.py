@@ -3,6 +3,7 @@ from print_puzzle import print_board
 from backtracking import backtrack
 from simulated_annealing import simulated_annealing
 from alternating_projections import alternating_projections
+from mrv_method import mrv_solve, get_sets
 from compare_boards import compare
 
 
@@ -51,13 +52,18 @@ def test(n, method, file_name):
             with open(file_name, 'a') as file:
                 file.write(f"---Test {j+1}---\n\n")
                 
-            print_board(board, n, file_name)
             times = []
 
 
             if method == "backtracking":
                 start = time()
                 backtrack(board, n)
+                end = time()
+                times.append(end-start)
+            elif method == "mrv method":
+                rows, columns, boxes = get_sets(board, n)
+                start = time()
+                mrv_solve(board, n, rows, columns, boxes)
                 end = time()
                 times.append(end-start)
             elif method == "alternating projection":
@@ -82,14 +88,10 @@ def test(n, method, file_name):
                 file.write("End board:\n")
 
             print_board(board, n, file_name)
-            with open(file_name, 'a') as file:
-                file.write("Expected:\n")
-
-            print_board(answer, n, file_name)
         
         with open(file_name, 'a') as file:
                 file.write(f"Average completion time: {sum(times)//len(times)}\n")
-                file.write(f"Average differences time: {sum(differences)//len(differences)}\n")
+                file.write(f"Average differences: {sum(differences)//len(differences)}\n")
 
 
 
@@ -113,6 +115,15 @@ def main():
         file.write("")
     test(n, "backtracking", file_name)
 
+    file_name = "test_results_mrv.txt"
+    with open(file_name, 'w') as file:
+        file.write("")
+    
+    test(n, "mrv method", file_name)
+
+    print('Done')
+
+    """
     file_name = "test_results_alternating.txt"
     with open(file_name, 'w') as file:
         file.write("")
@@ -122,7 +133,23 @@ def main():
     with open(file_name, 'w') as file:
         file.write("")
     test(n, "simulated annealing", file_name)
+    """
 
+
+    n = 4
+    board = read_file("16.txt")
+    answer = read_file("16_answer.txt")
+
+    rows, columns, boxes = get_sets(board, n)
+    start = time()
+    mrv_solve(board, n, rows, columns, boxes)
+    end = time()
+
+    
+    
+    print(f"Sudoku completed in: {end-start}")
+    print_board(board)
+    
 
 
 if __name__ == "__main__":
