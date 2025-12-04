@@ -66,11 +66,11 @@ def test(n, method, file_name):
                 mrv_solve(board, n, rows, columns, boxes)
                 end = time()
                 times.append(end-start)
-            # elif method == "alternating projection":
-            #     start = time()
-            #     board = alternating_projections(board, n)
-            #     end = time()
-            #     times.append(end-start)
+            elif method == "alternating projection":
+                start = time()
+                board = alternating_projections(board, n)
+                end = time()
+                times.append(end-start)
             elif method == "simulated annealing":
                 # Tune it HERE
                 sa_kwargs = dict(
@@ -126,25 +126,29 @@ def main():
         file.write("")
     test(n, "backtracking", file_name)
 
+    print("Finished Backtracking")
+
     file_name = "test_results_mrv.txt"
     with open(file_name, 'w') as file:
         file.write("")
     
     test(n, "mrv method", file_name)
 
-    print('Done')
+    print("Finished MRV Method")
 
-    """
     file_name = "test_results_alternating.txt"
     with open(file_name, 'w') as file:
         file.write("")
     test(n, "alternating projection", file_name)
-    """
+
+    print("Finished Alternating Projection")
+
     file_name = "test_results_annealing.txt"
     with open(file_name, 'w') as file:
         file.write("")
     test(n, "simulated annealing", file_name)
     
+    print("Finished Simulated Annealing")
 
 
     n = 4
