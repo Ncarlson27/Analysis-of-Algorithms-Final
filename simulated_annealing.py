@@ -1,165 +1,284 @@
 import math
 from copy import deepcopy
-from random import shuffle, randint, sample, random
+from random import randint, shuffle, random, sample, seed as set_seed
+
+# ----------------------------
+# Helper functions here
+# ----------------------------
+
+def _validate_clues(board: list, n: int) -> bool:
+    """Returns true if no box has duplicate nonzero clues. 
+       Otherwise, it's invalid and returns false. """
+    N = n * n
+    for br in range(0, N, n):
+        for bc in range(0, N, n):
+            seen = set()
+            for r in range(br, br + n):
+                for c in range(bc, bc + n):
+                    v = board[r][c]
+                    if v != 0:
+                        if v in seen:
+                            return False
+                        seen.add(v)
+    return True
 
 
-def fill_missing(board: list, n: int) -> list:
+def _fill_missing(board: list, n: int) -> list:
     """
-    Params:
-        board: 2-d list representing the board
-        n: an int representing the size of the board
-
-    Returns:
-        list: returns a 2-d list with a randomly filled board 
+    Fill each n*n box with the numbers missing from that box (uniformly shuffled).
+    This ensures all box constraints are satisfied from the start.
     """
-    # makes a deep copy fo the board to not modify the original
-    board_state = deepcopy(board) 
-
-    # iterating across each box
-    for box_row in range(0, n**2, n): # boxes are size n by n
-        for box_column in range(0, n**2, n):
-
-            current_values = set() # holds current values i.e. clues
-            empty_cells = [] # holds starting empty cells
-
-            # iterates through each box
-            for row in range(box_row, box_row + n): 
-                for column in range(box_column, box_column + n):
-                    # if the value is not already filled i.e. a clue
-                    if board[row][column] != 0:
-                        current_values.add(board[row][column])
+    N = n * n
+    state = [row[:] for row in board]  # copy
+    for br in range(0, N, n):
+        for bc in range(0, N, n):
+            present = set()
+            empties = []
+            for r in range(br, br + n):
+                for c in range(bc, bc + n):
+                    v = state[r][c]
+                    if v == 0:
+                        empties.append((r, c))
                     else:
-                        empty_cells.append((row, column))
-
-            
-            # gets the vaues 1 - n**2 to be used to fill the box
-            # ignores the clues in the box 
-            missing = list(set(range(1, (n**2)+1)) - current_values)
-            shuffle(missing) # shuffles the usable numbers
-
-
-            # iterates through the list of empty cells and missing values
-            # fills the empty cell with a random value
-            for (row, column), digit in zip(empty_cells, missing):
-                board_state[row][column] = digit
-
-    return board_state
+                        present.add(v)
+            missing = [d for d in range(1, N + 1) if d not in present]
+            shuffle(missing)
+            # Fisher-Yates style shuffle via random sampling of pairs below; order doesn't matter
+            for (r, c), d in zip(empties, missing):
+                state[r][c] = d
+    return state
 
 
-def calculate_cost(board_state: list, n: int) -> int:
-    """
-    Params:
-        board_state: 2-d list representing the current board state
-        n: an int representing the size of the board
-
-    Returns:
-        int: returns the number of conflicts in the board
-    """
-    # the amount of conflicts
-    conflicts = 0
-
-    for r in range(n**2):
-        row = board_state[r] # gets the list representing each row
-        conflicts += n**2 - len(set(row)) # converts to set, so duplicates are removed
-        # compares the total amount of possible conflicts (n**2) to the size
-
+def _row_duplicates(vals: list[int]) -> int:
+    """Return the number of duplicates in a row/column. 
+       If all numbers are unique, then it'll return 0."""
     
-    for c in range(n**2):
-        column = [board_state[r][c] for r in range(n**2)] # gets the list of eah column
-        conflicts += n**2 - len(set(column)) # converts to set, so duplicates are removed
-        # compares the total amount of possible conflicts (n**2) to the size
+    # Faster than Counter for small fixed sizes
+    seen = set()
+    dup = 0
+    for v in vals:
+        if v in seen:
+            dup += 1
+        else:
+            seen.add(v)
+    return dup
 
+
+def _calculate_cost(board: list, n: int) -> int:
+    """Total num of conflicts = duplicates across all rows and columns."""
+    N = n * n
+    conflicts = 0
+    for r in range(N):
+        conflicts += _row_duplicates(board[r])
+    for c in range(N):
+        col = [board[r][c] for r in range(N)]
+        conflicts += _row_duplicates(col)
     return conflicts
 
 
-def swap_random_values(board_state: list, clues: set, n: int) -> list:
+def _delta_cost_after_swap(state: list, n: int, r1: int, c1: int, r2: int, c2: int) -> int:
     """
-    Params:
-        board: 2-d list representing the board
-        clues: a set containing tuple coordinates of the clues 
-        n: an int representing the size of the board
-
-    Returns:
-        list: returns a 2-d list after swapping values 
+    Computes the cost change if we swap (r1,c1) <-> (r2,c2).
+    Note to self: Only rows r1,r2 and cols c1,c2 can change!!
     """
-    # makes a deep copy fo the board to not modify the original
-    new_board = deepcopy(board_state)
+    N = n * n
 
-    # generating a random box
-    # boxes start in increments of n e.g. 0, 3, 6 for n = 3
-    box_row = n * randint(0, n-1)
-    box_column = n * randint(0, n-1)
+    def row_cost(r):
+        return _row_duplicates(state[r])
 
-    # keeps track of free to change cells, i.e. non-clue cells
-    free = [] 
+    def col_cost(c):
+        return _row_duplicates([state[r][c] for r in range(N)])
 
-    # finds all free cells
-    for row in range(box_row, box_row + n):
-        for column in range(box_column, box_column + n):
-            if (row, column) not in clues:
-                free.append((row, column))
+    before = row_cost(r1) + row_cost(r2) + col_cost(c1) + col_cost(c2)
 
-    # if there's fewer than 2 free cells
+    # do swap
+    state[r1][c1], state[r2][c2] = state[r2][c2], state[r1][c1]
+    after = row_cost(r1) + row_cost(r2) + col_cost(c1) + col_cost(c2)
+    # swap back
+    state[r1][c1], state[r2][c2] = state[r2][c2], state[r1][c1]
+
+    return after - before
+
+
+def _conflicted_rows_cols(board: list, n: int):
+    """Returns the sets of row indices and column indices that currently have conflicts."""
+    N = n * n
+    bad_rows, bad_cols = set(), set()
+    for r in range(N):
+        if _row_duplicates(board[r]) > 0:
+            bad_rows.add(r)
+    for c in range(N):
+        col = [board[r][c] for r in range(N)]
+        if _row_duplicates(col) > 0:
+            bad_cols.add(c)
+    return bad_rows, bad_cols
+
+
+def _pick_conflicted_box(n: int, bad_rows: set[int], bad_cols: set[int]) -> tuple[int, int]:
+    """
+    Chooses which n*n box to target for a swap during simulated annealing.
+    Returns (box_row_index, box_col_index) in [0..n-1]^2 for identifying the 
+    chosen box within the grid.
+    """
+    N = n * n
+    candidates = set()
+    if bad_rows or bad_cols:
+        rows = bad_rows if bad_rows else set(range(N))
+        cols = bad_cols if bad_cols else set(range(N))
+        for r in rows:
+            for c in cols:
+                candidates.add((r // n, c // n))
+    else:
+        # no detected conflicts; choose randomly
+        return randint(0, n - 1), randint(0, n - 1)
+
+    brbc = list(candidates)
+    i = randint(0, len(brbc) - 1)
+    return brbc[i]
+
+
+def _swap_random_in_box(state: list, clues: set[tuple[int, int]], n: int, choose_box_from_conflicts=True) -> tuple[list, tuple|None]:
+    """
+    Swaps two non-clue cells within a chosen box to keep box validity.
+    Returns (new_state, (r1,c1,r2,c2)) or (state, None) if there was no swap possible.
+    """
+    N = n * n
+    if choose_box_from_conflicts:
+        bad_r, bad_c = _conflicted_rows_cols(state, n)
+        br, bc = _pick_conflicted_box(n, bad_r, bad_c)
+    else:
+        br, bc = randint(0, n - 1), randint(0, n - 1)
+
+    free = [(r, c)
+            for r in range(br * n, br * n + n)
+            for c in range(bc * n, bc * n + n)
+            if (r, c) not in clues]
+
     if len(free) < 2:
-        return new_board 
+        return state, None
 
-    # randomly swaps 2 values in the box
     (r1, c1), (r2, c2) = sample(free, 2)
-    new_board[r1][c1], new_board[r2][c2] = new_board[r2][c2], new_board[r1][c1]
+    new_state = [row[:] for row in state]
+    new_state[r1][c1], new_state[r2][c2] = new_state[r2][c2], new_state[r1][c1]
+    return new_state, (r1, c1, r2, c2)
 
-    return new_board
 
-
-
-def simulated_annealing(board: list, n: int) -> list|int:
+def _schedule_defaults(n: int) -> tuple[float, float, float, int]:
     """
-    Params:
-        board: 2-d list representing the board
-        n: an int representing the size of the board
-
-    Returns:
-        list: returns a 2-d list of the final board state
-        int: returns the number of conflicts
+    Polynomial schedule tied to size:
+    iterations_per_temp ~ O((n^2)^2) = O(n^4) (81*50 ~ 4050 for 9x9).
     """
-    
-    # keeps track of all the positions of the clues
-    clues = {(row, column) for row in range(n**2) for 
-             column in range(n**2) if board[row][column] != 0}
+    N = n * n
+    T0 = 1.0
+    Tmin = 1e-4
+    alpha = 0.995
+    iterations_per_temp = 50 * N
+    return T0, Tmin, alpha, iterations_per_temp
 
-    # creates initial randomly generated board state
-    state = fill_missing(board, n)
-    # finds the current cost
-    current_cost = calculate_cost(state, n) # current conflicts
+# ----------------------------
+# The main SA work is here
+# ----------------------------
 
-   
-    T = 1.0 # starting temp
-    T_min = 1e-6 # minimum temp
-    alpha = 0.995 # how fast it cools
-    iterations_per_temp = 1000 # iterations per temp value
+def _run_single_sa(board: list, n: int, *, 
+                   T0: float = None,
+                   Tmin: float = None,
+                   alpha: float = None,
+                   iterations_per_temp: int = None,
+                   patience: int = 5000,
+                   seed: int | None = None,
+                   use_delta: bool = True) -> list:
+    """
+    Run a single SA trajectory and return the best board found from that run.
+    """
+    if seed is not None:
+        set_seed(seed)
 
-    while T > T_min: 
-        for _ in range(iterations_per_temp): # iterate 1000 times before it cools
-            # swaps a value, calculates the cost, and gets the change between them 
-            swaped_board = swap_random_values(state, clues, n) 
-            new_cost = calculate_cost(swaped_board, n)
-            delta = new_cost - current_cost
+    assert _validate_clues(board, n), "Invalid puzzle: duplicate clues inside a box."
 
-            if delta <= 0:
-                # accepts better state
-                state = swaped_board
-                current_cost = new_cost
+    if T0 is None or Tmin is None or alpha is None or iterations_per_temp is None:
+        dT0, dTmin, dalpha, diter = _schedule_defaults(n)
+        T0 = dT0 if T0 is None else T0
+        Tmin = dTmin if Tmin is None else Tmin
+        alpha = dalpha if alpha is None else alpha
+        iterations_per_temp = diter if iterations_per_temp is None else iterations_per_temp
+
+    N = n * n
+    clues = {(r, c) for r in range(N) for c in range(N) if board[r][c] != 0}
+
+    state = _fill_missing(board, n)
+    current_cost = _calculate_cost(state, n)
+
+    best_state = [row[:] for row in state]
+    best_cost = current_cost
+
+    T = T0
+    no_improve = 0
+
+    # Early exit if already solved
+    if best_cost == 0:
+        return best_state
+
+    while T > Tmin:
+        for _ in range(iterations_per_temp):
+            # propose a move (preserving box validity)
+            proposal, coords = _swap_random_in_box(state, clues, n, choose_box_from_conflicts=True)
+            if coords is None:
+                # no swap possible in that box; try another iteration
+                continue
+
+            if use_delta:
+                r1, c1, r2, c2 = coords
+                delta = _delta_cost_after_swap(state, n, r1, c1, r2, c2)
+                new_cost = current_cost + delta
             else:
-                # accepts worse state with a given propability 
-                p = math.exp(-delta / T)
-                if random() < p:
-                    state = swaped_board
-                    current_cost = new_cost
+                new_cost = _calculate_cost(proposal, n)
 
-            if current_cost == 0: # return if no conflicts
-                return state  
+            diff = new_cost - current_cost
+            accept = diff <= 0 or random() < math.exp(-diff / T)
 
-        # cool the temperature and go again
+            if accept:
+                state = proposal
+                current_cost = new_cost
+                if current_cost < best_cost:
+                    best_cost = current_cost
+                    best_state = [row[:] for row in state]
+                    no_improve = 0
+                else:
+                    no_improve += 1
+            else:
+                no_improve += 1
+
+            if best_cost == 0 or no_improve >= patience:
+                return best_state
+
         T *= alpha
 
-    # if there are still conflicts once cooled
-    return state
+    return best_state
+
+
+# ----------------------------
+# Public API used in main.py
+# ----------------------------
+
+def simulated_annealing(board: list, n: int, *, restarts: int = 1, seed: int | None = None, **kwargs) -> list:
+    """
+    SA wrapper expected by main.py:
+      - returns a BOARD (not stats)
+      - supports multiple restarts and optional seeding
+      - kwargs pass through to _run_single_sa (T0, Tmin, alpha, iterations_per_temp, patience, use_delta)
+    """
+    best_board = None
+    best_cost = None
+
+    # Split seed across restarts deterministically if provided
+    for r in range(restarts):
+        rseed = None if seed is None else (seed + r)
+        candidate = _run_single_sa(board, n, seed=rseed, **kwargs)
+        cost = _calculate_cost(candidate, n)
+        if best_board is None or cost < best_cost:
+            best_board = candidate
+            best_cost = cost
+        if best_cost == 0:
+            break
+
+    return best_board

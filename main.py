@@ -36,7 +36,7 @@ def test(n, method, file_name):
                     file.write(f"\n\n\n----------Medium file----------\n\n")
             case 2:
                 with open(file_name, 'a') as file:
-                    file.write(f"\n\n\----------Hard file----------\n\n")
+                    file.write(f"\n\n\n----------Hard file----------\n\n")
         for j in range(5):
             match i:
                 case 0:
@@ -66,16 +66,27 @@ def test(n, method, file_name):
                 mrv_solve(board, n, rows, columns, boxes)
                 end = time()
                 times.append(end-start)
-            elif method == "alternating projection":
-                start = time()
-                board = alternating_projections(board, n)
-                end = time()
-                times.append(end-start)
+            # elif method == "alternating projection":
+            #     start = time()
+            #     board = alternating_projections(board, n)
+            #     end = time()
+            #     times.append(end-start)
             elif method == "simulated annealing":
+                # Tune it HERE
+                sa_kwargs = dict(
+                    restarts=20,
+                    seed=123 + j, # so it diversifies per run
+                    alpha=0.997,
+                    iterations_per_temp=6000,
+                    patience=8000,
+                    T0=1.0,
+                    Tmin=1e-4,
+                )
                 start = time()
-                board = simulated_annealing(board, n)
+                board = simulated_annealing(board, n, **sa_kwargs)
                 end = time()
-                times.append(end-start)
+                times.append(end - start)
+
 
 
             differences = []
@@ -128,12 +139,12 @@ def main():
     with open(file_name, 'w') as file:
         file.write("")
     test(n, "alternating projection", file_name)
-
+    """
     file_name = "test_results_annealing.txt"
     with open(file_name, 'w') as file:
         file.write("")
     test(n, "simulated annealing", file_name)
-    """
+    
 
 
     n = 4
