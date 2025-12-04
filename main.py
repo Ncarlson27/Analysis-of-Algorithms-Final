@@ -90,7 +90,7 @@ def test(n, method, file_name):
             print_board(board, n, file_name)
         
         with open(file_name, 'a') as file:
-                file.write(f"Average completion time: {sum(times)//len(times)}\n")
+                file.write(f"Average completion time: {sum(times)/len(times)}\n")
                 file.write(f"Average differences: {sum(differences)//len(differences)}\n")
 
 
@@ -138,7 +138,6 @@ def main():
 
     n = 4
     board = read_file("16.txt")
-    answer = read_file("16_answer.txt")
 
     rows, columns, boxes = get_sets(board, n)
     start = time()
@@ -148,7 +147,7 @@ def main():
     
     
     print(f"Sudoku completed in: {end-start}")
-    print_board(board)
+    print_board(board, n)
     
 
 
