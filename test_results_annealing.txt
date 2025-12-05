@@ -6,7 +6,7 @@
 ---Test 1---
 
 Puzzle completed with simulated annealing
-Time taken: 0.8939392566680908
+Time taken: 0.8717951774597168
 Differences: 0
 End board:
 Puzzle:
@@ -26,7 +26,7 @@ Puzzle:
 ---Test 2---
 
 Puzzle completed with simulated annealing
-Time taken: 0.7405109405517578
+Time taken: 0.7260379791259766
 Differences: 0
 End board:
 Puzzle:
@@ -46,7 +46,7 @@ Puzzle:
 ---Test 3---
 
 Puzzle completed with simulated annealing
-Time taken: 0.6610372066497803
+Time taken: 0.6522889137268066
 Differences: 0
 End board:
 Puzzle:
@@ -66,7 +66,7 @@ Puzzle:
 ---Test 4---
 
 Puzzle completed with simulated annealing
-Time taken: 0.5761699676513672
+Time taken: 0.552072286605835
 Differences: 0
 End board:
 Puzzle:
@@ -86,7 +86,7 @@ Puzzle:
 ---Test 5---
 
 Puzzle completed with simulated annealing
-Time taken: 0.36641621589660645
+Time taken: 0.3497462272644043
 Differences: 0
 End board:
 Puzzle:
@@ -103,7 +103,7 @@ Puzzle:
 9 1 2 |3 4 5 |6 7 8
 
 
-Average completion time: 0.36641621589660645
+Average completion time: 0.3497462272644043
 Average differences: 0
 
 
@@ -113,7 +113,7 @@ Average differences: 0
 ---Test 1---
 
 Puzzle completed with simulated annealing
-Time taken: 0.13968300819396973
+Time taken: 0.13399505615234375
 Differences: 0
 End board:
 Puzzle:
@@ -133,7 +133,7 @@ Puzzle:
 ---Test 2---
 
 Puzzle completed with simulated annealing
-Time taken: 0.8999800682067871
+Time taken: 0.8768978118896484
 Differences: 0
 End board:
 Puzzle:
@@ -153,7 +153,7 @@ Puzzle:
 ---Test 3---
 
 Puzzle completed with simulated annealing
-Time taken: 0.7815208435058594
+Time taken: 0.7736430168151855
 Differences: 0
 End board:
 Puzzle:
@@ -173,7 +173,7 @@ Puzzle:
 ---Test 4---
 
 Puzzle completed with simulated annealing
-Time taken: 0.668341875076294
+Time taken: 0.6579151153564453
 Differences: 0
 End board:
 Puzzle:
@@ -193,7 +193,7 @@ Puzzle:
 ---Test 5---
 
 Puzzle completed with simulated annealing
-Time taken: 0.5161900520324707
+Time taken: 0.5165669918060303
 Differences: 0
 End board:
 Puzzle:
@@ -210,7 +210,7 @@ Puzzle:
 3 4 5 |2 8 6 |1 7 9
 
 
-Average completion time: 0.5161900520324707
+Average completion time: 0.5165669918060303
 Average differences: 0
 
 
@@ -220,7 +220,7 @@ Average differences: 0
 ---Test 1---
 
 Puzzle completed with simulated annealing
-Time taken: 3.3646371364593506
+Time taken: 3.338016986846924
 Differences: 23
 End board:
 Puzzle:
@@ -240,7 +240,7 @@ Puzzle:
 ---Test 2---
 
 Puzzle completed with simulated annealing
-Time taken: 3.272887945175171
+Time taken: 3.2086870670318604
 Differences: 23
 End board:
 Puzzle:
@@ -260,7 +260,7 @@ Puzzle:
 ---Test 3---
 
 Puzzle completed with simulated annealing
-Time taken: 3.246939182281494
+Time taken: 3.2640042304992676
 Differences: 23
 End board:
 Puzzle:
@@ -280,7 +280,7 @@ Puzzle:
 ---Test 4---
 
 Puzzle completed with simulated annealing
-Time taken: 3.2386538982391357
+Time taken: 3.280891180038452
 Differences: 23
 End board:
 Puzzle:
@@ -300,7 +300,7 @@ Puzzle:
 ---Test 5---
 
 Puzzle completed with simulated annealing
-Time taken: 3.2346889972686768
+Time taken: 3.2638449668884277
 Differences: 23
 End board:
 Puzzle:
@@ -317,5 +317,5 @@ Puzzle:
 2 6 3 |4 1 8 |9 5 7
 
 
-Average completion time: 3.2346889972686768
+Average completion time: 3.2638449668884277
 Average differences: 23

@@ -6,7 +6,7 @@
 ---Test 1---
 
 Puzzle completed with alternating projection
-Time taken: 0.3534719944000244
+Time taken: 0.3475768566131592
 Differences: 0
 End board:
 Puzzle:
@@ -26,7 +26,7 @@ Puzzle:
 ---Test 2---
 
 Puzzle completed with alternating projection
-Time taken: 0.3358588218688965
+Time taken: 0.3354501724243164
 Differences: 0
 End board:
 Puzzle:
@@ -46,7 +46,7 @@ Puzzle:
 ---Test 3---
 
 Puzzle completed with alternating projection
-Time taken: 0.3373899459838867
+Time taken: 0.3295760154724121
 Differences: 0
 End board:
 Puzzle:
@@ -66,7 +66,7 @@ Puzzle:
 ---Test 4---
 
 Puzzle completed with alternating projection
-Time taken: 0.334306001663208
+Time taken: 0.3295319080352783
 Differences: 0
 End board:
 Puzzle:
@@ -86,7 +86,7 @@ Puzzle:
 ---Test 5---
 
 Puzzle completed with alternating projection
-Time taken: 0.3348069190979004
+Time taken: 0.3259601593017578
 Differences: 0
 End board:
 Puzzle:
@@ -103,7 +103,7 @@ Puzzle:
 9 1 2 |3 4 5 |6 7 8
 
 
-Average completion time: 0.3348069190979004
+Average completion time: 0.3259601593017578
 Average differences: 0
 
 
@@ -113,7 +113,7 @@ Average differences: 0
 ---Test 1---
 
 Puzzle completed with alternating projection
-Time taken: 0.34595274925231934
+Time taken: 0.36236572265625
 Differences: 0
 End board:
 Puzzle:
@@ -133,7 +133,7 @@ Puzzle:
 ---Test 2---
 
 Puzzle completed with alternating projection
-Time taken: 0.3439643383026123
+Time taken: 0.33362507820129395
 Differences: 0
 End board:
 Puzzle:
@@ -153,7 +153,7 @@ Puzzle:
 ---Test 3---
 
 Puzzle completed with alternating projection
-Time taken: 0.35035181045532227
+Time taken: 0.33428215980529785
 Differences: 0
 End board:
 Puzzle:
@@ -173,7 +173,7 @@ Puzzle:
 ---Test 4---
 
 Puzzle completed with alternating projection
-Time taken: 0.3454630374908447
+Time taken: 0.3330056667327881
 Differences: 0
 End board:
 Puzzle:
@@ -193,7 +193,7 @@ Puzzle:
 ---Test 5---
 
 Puzzle completed with alternating projection
-Time taken: 0.34961724281311035
+Time taken: 0.3354310989379883
 Differences: 0
 End board:
 Puzzle:
@@ -210,7 +210,7 @@ Puzzle:
 3 4 5 |2 8 6 |1 7 9
 
 
-Average completion time: 0.34961724281311035
+Average completion time: 0.3354310989379883
 Average differences: 0
 
 
@@ -220,7 +220,7 @@ Average differences: 0
 ---Test 1---
 
 Puzzle completed with alternating projection
-Time taken: 0.37748193740844727
+Time taken: 0.3442699909210205
 Differences: 9
 End board:
 Puzzle:
@@ -240,7 +240,7 @@ Puzzle:
 ---Test 2---
 
 Puzzle completed with alternating projection
-Time taken: 0.3560819625854492
+Time taken: 0.34790873527526855
 Differences: 9
 End board:
 Puzzle:
@@ -260,7 +260,7 @@ Puzzle:
 ---Test 3---
 
 Puzzle completed with alternating projection
-Time taken: 0.3527560234069824
+Time taken: 0.34709978103637695
 Differences: 9
 End board:
 Puzzle:
@@ -280,7 +280,7 @@ Puzzle:
 ---Test 4---
 
 Puzzle completed with alternating projection
-Time taken: 0.35945773124694824
+Time taken: 0.3594028949737549
 Differences: 9
 End board:
 Puzzle:
@@ -300,7 +300,7 @@ Puzzle:
 ---Test 5---
 
 Puzzle completed with alternating projection
-Time taken: 0.3523900508880615
+Time taken: 0.3413538932800293
 Differences: 9
 End board:
 Puzzle:
@@ -317,5 +317,5 @@ Puzzle:
 7 6 3 |4 1 8 |9 5 9
 
 
-Average completion time: 0.3523900508880615
+Average completion time: 0.3413538932800293
 Average differences: 9
