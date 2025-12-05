@@ -1,3 +1,10 @@
+"""
+Final Project-- Part 2 
+CS 3310
+Nathan Carlson and Dani Anderson
+Due: 12/5/25
+"""
+
 from time import time
 from print_puzzle import print_board
 from backtracking import backtrack
