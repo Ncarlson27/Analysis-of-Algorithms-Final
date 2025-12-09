@@ -12,6 +12,7 @@ from simulated_annealing import simulated_annealing
 from alternating_projections import alternating_projections
 from mrv_method import mrv_solve, get_sets
 from compare_boards import compare
+from flow_matching import flow_matching_sudoku
 
 
 def read_file(file_name):
@@ -93,6 +94,11 @@ def test(n, method, file_name):
                 board = simulated_annealing(board, n, **sa_kwargs)
                 end = time()
                 times.append(end - start)
+            elif method == "flow matching":
+                start = time()
+                board = flow_matching_sudoku(board, n, restarts=6, seed=123)
+                end = time()
+                times.append(end-start)
 
 
 
@@ -157,6 +163,12 @@ def main():
     
     print("Finished Simulated Annealing")
 
+    file_name = "test_results_flow.txt"
+    with open(file_name, 'w') as f:
+        f.write("")
+    test(3, "flow matching", file_name)
+
+    print("Finished Flow Matching")
 
     n = 4
     board = read_file("16.txt")

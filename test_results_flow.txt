@@ -5,8 +5,8 @@
 
 ---Test 1---
 
-Puzzle completed with mrv method
-Time taken: 0.00012302398681640625
+Puzzle completed with flow matching
+Time taken: 0.0016279220581054688
 Differences: 0
 End board:
 Puzzle:
@@ -25,8 +25,8 @@ Puzzle:
 
 ---Test 2---
 
-Puzzle completed with mrv method
-Time taken: 0.00010800361633300781
+Puzzle completed with flow matching
+Time taken: 0.0015268325805664062
 Differences: 0
 End board:
 Puzzle:
@@ -45,8 +45,8 @@ Puzzle:
 
 ---Test 3---
 
-Puzzle completed with mrv method
-Time taken: 0.00010800361633300781
+Puzzle completed with flow matching
+Time taken: 0.0015239715576171875
 Differences: 0
 End board:
 Puzzle:
@@ -65,8 +65,8 @@ Puzzle:
 
 ---Test 4---
 
-Puzzle completed with mrv method
-Time taken: 0.000102996826171875
+Puzzle completed with flow matching
+Time taken: 0.0016031265258789062
 Differences: 0
 End board:
 Puzzle:
@@ -85,8 +85,8 @@ Puzzle:
 
 ---Test 5---
 
-Puzzle completed with mrv method
-Time taken: 0.00010228157043457031
+Puzzle completed with flow matching
+Time taken: 0.0017969608306884766
 Differences: 0
 End board:
 Puzzle:
@@ -103,7 +103,7 @@ Puzzle:
 9 1 2 |3 4 5 |6 7 8
 
 
-Average completion time: 0.00010228157043457031
+Average completion time: 0.0017969608306884766
 Average differences: 0
 
 
@@ -112,8 +112,8 @@ Average differences: 0
 
 ---Test 1---
 
-Puzzle completed with mrv method
-Time taken: 0.0002269744873046875
+Puzzle completed with flow matching
+Time taken: 0.0019652843475341797
 Differences: 0
 End board:
 Puzzle:
@@ -132,8 +132,8 @@ Puzzle:
 
 ---Test 2---
 
-Puzzle completed with mrv method
-Time taken: 0.00021004676818847656
+Puzzle completed with flow matching
+Time taken: 0.0020112991333007812
 Differences: 0
 End board:
 Puzzle:
@@ -152,8 +152,8 @@ Puzzle:
 
 ---Test 3---
 
-Puzzle completed with mrv method
-Time taken: 0.00020694732666015625
+Puzzle completed with flow matching
+Time taken: 0.0020608901977539062
 Differences: 0
 End board:
 Puzzle:
@@ -172,8 +172,8 @@ Puzzle:
 
 ---Test 4---
 
-Puzzle completed with mrv method
-Time taken: 0.00020003318786621094
+Puzzle completed with flow matching
+Time taken: 0.0021381378173828125
 Differences: 0
 End board:
 Puzzle:
@@ -192,8 +192,8 @@ Puzzle:
 
 ---Test 5---
 
-Puzzle completed with mrv method
-Time taken: 0.00019788742065429688
+Puzzle completed with flow matching
+Time taken: 0.0020020008087158203
 Differences: 0
 End board:
 Puzzle:
@@ -210,7 +210,7 @@ Puzzle:
 3 4 5 |2 8 6 |1 7 9
 
 
-Average completion time: 0.00019788742065429688
+Average completion time: 0.0020020008087158203
 Average differences: 0
 
 
@@ -219,103 +219,103 @@ Average differences: 0
 
 ---Test 1---
 
-Puzzle completed with mrv method
-Time taken: 0.005850076675415039
-Differences: 0
+Puzzle completed with flow matching
+Time taken: 0.004094839096069336
+Differences: 22
 End board:
 Puzzle:
-4 3 5 |2 6 9 |7 8 1
-6 8 2 |5 7 1 |4 9 3
-1 9 7 |8 3 4 |5 6 2
+4 5 9 |2 6 0 |7 8 1
+6 8 2 |5 3 1 |4 9 0
+1 3 7 |8 2 4 |5 6 0
 - - - - - - - - - - 
-8 2 6 |1 9 5 |3 4 7
+8 2 6 |1 5 9 |3 4 7
 3 7 4 |6 8 2 |9 1 5
-9 5 1 |7 4 3 |6 2 8
+9 1 5 |7 4 3 |6 2 8
 - - - - - - - - - - 
-5 1 9 |3 2 6 |8 7 4
-2 4 8 |9 5 7 |1 3 6
-7 6 3 |4 1 8 |2 5 9
+5 4 1 |3 0 6 |8 7 2
+2 9 8 |4 7 5 |1 3 6
+7 6 3 |9 1 8 |2 5 4
 
 
 ---Test 2---
 
-Puzzle completed with mrv method
-Time taken: 0.0055239200592041016
-Differences: 0
+Puzzle completed with flow matching
+Time taken: 0.00403594970703125
+Differences: 22
 End board:
 Puzzle:
-4 3 5 |2 6 9 |7 8 1
-6 8 2 |5 7 1 |4 9 3
-1 9 7 |8 3 4 |5 6 2
+4 5 9 |2 6 0 |7 8 1
+6 8 2 |5 3 1 |4 9 0
+1 3 7 |8 2 4 |5 6 0
 - - - - - - - - - - 
-8 2 6 |1 9 5 |3 4 7
+8 2 6 |1 5 9 |3 4 7
 3 7 4 |6 8 2 |9 1 5
-9 5 1 |7 4 3 |6 2 8
+9 1 5 |7 4 3 |6 2 8
 - - - - - - - - - - 
-5 1 9 |3 2 6 |8 7 4
-2 4 8 |9 5 7 |1 3 6
-7 6 3 |4 1 8 |2 5 9
+5 4 1 |3 0 6 |8 7 2
+2 9 8 |4 7 5 |1 3 6
+7 6 3 |9 1 8 |2 5 4
 
 
 ---Test 3---
 
-Puzzle completed with mrv method
-Time taken: 0.005381107330322266
-Differences: 0
+Puzzle completed with flow matching
+Time taken: 0.003994941711425781
+Differences: 22
 End board:
 Puzzle:
-4 3 5 |2 6 9 |7 8 1
-6 8 2 |5 7 1 |4 9 3
-1 9 7 |8 3 4 |5 6 2
+4 5 9 |2 6 0 |7 8 1
+6 8 2 |5 3 1 |4 9 0
+1 3 7 |8 2 4 |5 6 0
 - - - - - - - - - - 
-8 2 6 |1 9 5 |3 4 7
+8 2 6 |1 5 9 |3 4 7
 3 7 4 |6 8 2 |9 1 5
-9 5 1 |7 4 3 |6 2 8
+9 1 5 |7 4 3 |6 2 8
 - - - - - - - - - - 
-5 1 9 |3 2 6 |8 7 4
-2 4 8 |9 5 7 |1 3 6
-7 6 3 |4 1 8 |2 5 9
+5 4 1 |3 0 6 |8 7 2
+2 9 8 |4 7 5 |1 3 6
+7 6 3 |9 1 8 |2 5 4
 
 
 ---Test 4---
 
-Puzzle completed with mrv method
-Time taken: 0.0054569244384765625
-Differences: 0
+Puzzle completed with flow matching
+Time taken: 0.004134178161621094
+Differences: 22
 End board:
 Puzzle:
-4 3 5 |2 6 9 |7 8 1
-6 8 2 |5 7 1 |4 9 3
-1 9 7 |8 3 4 |5 6 2
+4 5 9 |2 6 0 |7 8 1
+6 8 2 |5 3 1 |4 9 0
+1 3 7 |8 2 4 |5 6 0
 - - - - - - - - - - 
-8 2 6 |1 9 5 |3 4 7
+8 2 6 |1 5 9 |3 4 7
 3 7 4 |6 8 2 |9 1 5
-9 5 1 |7 4 3 |6 2 8
+9 1 5 |7 4 3 |6 2 8
 - - - - - - - - - - 
-5 1 9 |3 2 6 |8 7 4
-2 4 8 |9 5 7 |1 3 6
-7 6 3 |4 1 8 |2 5 9
+5 4 1 |3 0 6 |8 7 2
+2 9 8 |4 7 5 |1 3 6
+7 6 3 |9 1 8 |2 5 4
 
 
 ---Test 5---
 
-Puzzle completed with mrv method
-Time taken: 0.005209922790527344
-Differences: 0
+Puzzle completed with flow matching
+Time taken: 0.0040857791900634766
+Differences: 22
 End board:
 Puzzle:
-4 3 5 |2 6 9 |7 8 1
-6 8 2 |5 7 1 |4 9 3
-1 9 7 |8 3 4 |5 6 2
+4 5 9 |2 6 0 |7 8 1
+6 8 2 |5 3 1 |4 9 0
+1 3 7 |8 2 4 |5 6 0
 - - - - - - - - - - 
-8 2 6 |1 9 5 |3 4 7
+8 2 6 |1 5 9 |3 4 7
 3 7 4 |6 8 2 |9 1 5
-9 5 1 |7 4 3 |6 2 8
+9 1 5 |7 4 3 |6 2 8
 - - - - - - - - - - 
-5 1 9 |3 2 6 |8 7 4
-2 4 8 |9 5 7 |1 3 6
-7 6 3 |4 1 8 |2 5 9
+5 4 1 |3 0 6 |8 7 2
+2 9 8 |4 7 5 |1 3 6
+7 6 3 |9 1 8 |2 5 4
 
 
-Average completion time: 0.005209922790527344
-Average differences: 0
+Average completion time: 0.0040857791900634766
+Average differences: 22
