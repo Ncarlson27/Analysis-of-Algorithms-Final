@@ -12,8 +12,12 @@ from compare_boards import compare
 
 
 def find_empty_cell(board: list) -> tuple|None: 
-    """ Params: board: 2-d list representing the board 
-    Returns: Tuple: containing the position of the next empty cell None: if the board is filled """ 
+    """ 
+    Params: 
+        board: 2-d list representing the board 
+    Returns: 
+        Tuple: containing the position of the next empty cell None: if the board is filled 
+    """ 
     # just iterates through the board to find the first empty cell 
     for i in range(len(board)): 
         for j in range(len(board[0])): 
@@ -23,6 +27,7 @@ def find_empty_cell(board: list) -> tuple|None:
     
     # if the board is full 
     return None 
+
 
 def get_pool(board: list, n:int) -> list: 
     pool = [] 
@@ -36,7 +41,8 @@ def get_pool(board: list, n:int) -> list:
                 pool.remove(board[i][j]) 
     
     return pool 
-            
+
+        
 def get_sets(board: list, n: int) -> list: 
     rows = [] 
     columns = [] 
@@ -81,9 +87,12 @@ def get_sets(board: list, n: int) -> list:
     return rows, columns, boxes 
                 
 
-def pool_solve(board: list, n:int, max_iters=1000) -> list: 
-    pool = get_pool(board, n) 
-    rows, columns, boxes = get_sets(board, n) 
+def pool_solve(board: list, n:int, answer_board: list, max_iters=1000000000) -> list: 
+    pool = get_pool(board, n)
+    rows, columns, boxes = get_sets(board, n)
+
+    best_board = None
+    least_errors = float("inf")
     
     for _ in range(max_iters): 
         shuffle(pool) 
@@ -119,9 +128,13 @@ def pool_solve(board: list, n:int, max_iters=1000) -> list:
             if find_empty_cell(board_state) is None: 
                 done = True 
             elif board_state[row_value][column_value] == 0: 
-                board_state[row_value][column_value] = -1 
+                board_state[row_value][column_value] = -1
+            
+        errors = compare(answer_board, board_state, n)
+        if errors < least_errors:
+            best_board = board_state
                     
-    return board_state 
+    return best_board
 
 
 if __name__ == "__main__": 
@@ -130,7 +143,7 @@ if __name__ == "__main__":
     answer = read_file("easy_sudoku_answer.txt") 
 
     start = time() 
-    board = pool_solve(board, n) 
+    board = pool_solve(board, n, answer) 
     end = time() 
     
     print(f"Errors: {compare(answer, board, n)}") 
